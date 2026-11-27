@@ -15,7 +15,7 @@ from pathlib import Path
 from typing import Any
 
 try:
-    from PIL import Image, ImageColor, ImageDraw, ImageFont
+    from PIL import Image, ImageChops, ImageColor, ImageDraw, ImageFont, ImageOps, ImageStat
 except ImportError as exc:  # pragma: no cover - exercised on a missing optional dependency
     raise SystemExit(
         "Carousel rendering needs Pillow. Install it with: "
@@ -182,10 +182,49 @@ def resolve_asset_path(value: str, base_dir: Path) -> str:
     return str(path if path.is_absolute() else (base_dir / path).resolve())
 
 
+def load_logo_mask(path: Path) -> Image.Image:
+    with Image.open(path) as source:
+        rgba = source.convert("RGBA")
+        alpha = rgba.getchannel("A")
+        luminance = ImageOps.grayscale(rgba.convert("RGB"))
+        mask = ImageChops.multiply(alpha, luminance)
+        bounds = mask.getbbox()
+        if bounds is None:
+            raise ValueError(f"Logo image has no visible mark: {path}")
+        return mask.crop(bounds)
+
+
+def logo_dimensions(config: dict[str, Any], target_height: int = 54) -> tuple[int, int] | None:
+    mask = config.get("_logo_mask")
+    if not isinstance(mask, Image.Image):
+        return None
+    return max(1, round(mask.width * target_height / mask.height)), target_height
+
+
+def contrast_logo_color(background: Image.Image, config: dict[str, Any], p: dict[str, str],
+                        x: int, y: int, target_height: int = 54) -> str:
+    dimensions = logo_dimensions(config, target_height)
+    if dimensions is None:
+        return p["ink"]
+    width, height = dimensions
+    sample = background.crop((x, y, x + width, y + height)).convert("L")
+    average_luminance = ImageStat.Stat(sample).mean[0]
+    sample.close()
+    return p["ink"] if average_luminance >= 145 else p["panel"]
+
+
 def draw_wordmark(draw: ImageDraw.ImageDraw, config: dict[str, Any], p: dict[str, str],
                   font: ImageFont.ImageFont, x: int, y: int, color: str | None = None) -> None:
-    # Text-only wordmark avoids inventing an unofficial icon or logo.
-    draw.text((x, y), config.get("name", "BRAND").upper(), font=font, fill=color or p["ink"])
+    # Recolor only the transparent monochrome mark; preserve the supplied logo's shape.
+    logo_mask = config.get("_logo_mask")
+    ink = color or p["ink"]
+    dimensions = logo_dimensions(config)
+    if isinstance(logo_mask, Image.Image) and dimensions is not None:
+        resized = logo_mask.resize(dimensions, Image.Resampling.LANCZOS)
+        draw.bitmap((x, y), resized, fill=ink)
+        resized.close()
+        return
+    draw.text((x, y), config.get("name", "BRAND").upper(), font=font, fill=ink)
 
 
 def footer(draw: ImageDraw.ImageDraw, config: dict[str, Any], p: dict[str, str],
@@ -218,7 +257,10 @@ def draw_cover(slide: dict[str, Any], image: Image.Image, config: dict[str, Any]
     bg = overlay_gradient(bg, 360, ImageColor.getrgb(p["dark"]), 238)
     bg = overlay_gradient(bg, 0, ImageColor.getrgb(p["dark"]), 120)
     draw = ImageDraw.Draw(bg)
-    draw_wordmark(draw, config, p, fonts["bold_small"], SAFE, 58, p["panel"])
+    draw_wordmark(
+        draw, config, p, fonts["bold_small"], SAFE, 58,
+        contrast_logo_color(bg, config, p, SAFE, 58),
+    )
     draw.text((SAFE, 178), f"CARRUSEL {deck_no:02d}  ·  GUÍA", font=fonts["label"], fill=p["accent2"])
     title_size = 112 if len(slide["title"]) < 20 else 96
     title_font = load_font(title_size, config.get("fonts", {}).get("serif_bold"), DEFAULT_SERIF_BOLD)
@@ -274,7 +316,10 @@ def draw_cta(slide: dict[str, Any], image: Image.Image, config: dict[str, Any], 
     bg = overlay_gradient(bg, 0, ImageColor.getrgb(p["dark"]), 130)
     bg = overlay_gradient(bg, 400, ImageColor.getrgb(p["dark"]), 245)
     draw = ImageDraw.Draw(bg)
-    draw_wordmark(draw, config, p, fonts["bold_small"], SAFE, 58, p["panel"])
+    draw_wordmark(
+        draw, config, p, fonts["bold_small"], SAFE, 58,
+        contrast_logo_color(bg, config, p, SAFE, 58),
+    )
     draw.text((SAFE, 520), f"SIGUIENTE PASO  ·  {deck_no:02d}", font=fonts["label"], fill=p["accent2"])
     title_font = fit_title(draw, slide["title"], 860, 104, 68, config.get("fonts", {}).get("serif_bold"))
     end, _ = draw_text_block(draw, slide["title"], (SAFE, 635), 850, title_font, p["panel"], 4, 3)
@@ -351,7 +396,10 @@ def draw_content(slide: dict[str, Any], image: Image.Image, config: dict[str, An
     title_color = p["panel"] if dark else p["ink"]
     body_color = p["panel"] if dark else p["muted"]
     if mode == 1:
-        draw_wordmark(draw, config, p, fonts["bold_small"], SAFE, 48, p["panel"])
+        draw_wordmark(
+            draw, config, p, fonts["bold_small"], SAFE, 48,
+            contrast_logo_color(canvas, config, p, SAFE, 48),
+        )
         draw.text((SAFE, 310), f"{number:02d}  ·  {label.upper()[:34]}", font=fonts["label"], fill=p["panel"])
         title_y = 470
     elif mode == 2:
@@ -415,11 +463,16 @@ def render_deck(deck: dict[str, Any], deck_index: int, image_path: Path, config:
         rendered.append(path)
     (deck_dir / "caption.txt").write_text(deck["caption"].strip() + "\n", encoding="utf-8")
     (deck_dir / "alt-text.txt").write_text(deck["alt"].strip() + "\n", encoding="utf-8")
+    logo_note = (
+        "Logotipo proporcionado por la persona usuaria; se adapta el color monocromo para mantener contraste."
+        if isinstance(config.get("_logo_mask"), Image.Image)
+        else "Wordmark tipográfico; no reemplaza el logotipo oficial."
+    )
     (deck_dir / "README.txt").write_text(
         f"{config.get('name', 'Brand')} · {deck['title']}\n"
         f"{total} JPG, 1080 × 1350 px, 4:5.\n"
         f"{config.get('asset_note', 'Confirma permisos y contexto de las fotos antes de publicar.')}\n"
-        f"Wordmark tipográfico; no reemplaza el logotipo oficial.\n",
+        f"{logo_note}\n",
         encoding="utf-8",
     )
     preview = deck_dir / "preview.pdf"
@@ -473,6 +526,18 @@ def main() -> int:
         key: resolve_asset_path(path, brand_path.parent) if path else None
         for key, path in fonts.items()
     }
+    logo = config.get("logo")
+    if logo is not None:
+        if not isinstance(logo, str):
+            parser.error("Brand config 'logo' must be a path string or null")
+        logo_path = Path(resolve_asset_path(logo, brand_path.parent))
+        if not logo_path.is_file():
+            parser.error(f"Logo image not found: {logo_path}")
+        try:
+            config["_logo_mask"] = load_logo_mask(logo_path)
+        except (OSError, ValueError) as exc:
+            parser.error(f"Cannot load logo image {logo_path}: {exc}")
+        config["logo"] = str(logo_path)
 
     try:
         carousels = parse_carousels(args.markdown.read_text(encoding="utf-8"))

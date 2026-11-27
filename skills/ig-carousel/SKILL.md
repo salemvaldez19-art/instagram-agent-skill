@@ -63,8 +63,9 @@ CTA if a separate slide would be repetitive.
 Start from the user's actual identity: use supplied logo files, palette, and
 fonts when available. Never invent or redraw an official-looking logo. If no
 logo file is available, use a restrained typographic wordmark and label it as
-such. Keep the layout recognizable across the deck without making every slide
-the same stack of cards.
+such. For a supplied monochrome logo, preserve its shape and use a light or dark
+version only as permitted by the brand rules. Keep the layout recognizable
+across the deck without making every slide the same stack of cards.
 
 - Build portrait at **1080 × 1350 px (4:5)**. Keep text and essential details
   away from the edges; preview the cover in both the feed and profile-grid crop.
@@ -125,9 +126,11 @@ python3 -m pip install -r skills/ig-carousel/requirements.txt
 ```
 
 Copy `brand.example.json`, replace the brand name, handle, palette, photo paths,
-and optional font paths. The photos list must have one image for each carousel
-in the Markdown file. Asset and font paths in the JSON are relative to that
-JSON file, or may be absolute.
+and optional font paths. Set `logo` to a supplied PNG path when available (or
+leave it `null`); for monochrome transparent logos the renderer preserves the
+alpha silhouette and recolors it for contrast. The photos list must have one
+image for each carousel in the Markdown file. Logo, image, and font paths in
+the JSON are relative to that JSON file, or may be absolute.
 
 ```bash
 python3 skills/ig-carousel/render_carousel.py \
@@ -137,9 +140,10 @@ python3 skills/ig-carousel/render_carousel.py \
 ```
 
 The renderer writes a folder per carousel with numbered JPGs, `preview.pdf`,
-`caption.txt`, and `alt-text.txt`. It also records that the wordmark is
-text-only; it does not replace an official logo. Keep generated output outside
-Git unless the project explicitly versions its final assets.
+`caption.txt`, and `alt-text.txt`. Its README records whether the supplied logo
+was used; without a logo, it falls back to a typographic wordmark that is not an
+official logo. Keep generated output outside Git unless the project explicitly
+versions its final assets.
 
 ## Quality check
 

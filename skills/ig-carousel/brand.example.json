@@ -3,6 +3,7 @@
   "handle": "@yourhandle",
   "tone": "editorial",
   "asset_note": "Confirm photo rights and context before publishing.",
+  "logo": null,
   "palette": {
     "paper": "#F6F1E6",
     "ink": "#123244",

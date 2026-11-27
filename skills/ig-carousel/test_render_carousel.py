@@ -77,6 +77,18 @@ A caption that adds context.
             expected = (base / "assets" / "cover.jpg").resolve()
             self.assertEqual(renderer.resolve_asset_path("assets/cover.jpg", base), str(expected))
 
+    def test_logo_uses_contrasting_monochrome_color(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            logo_path = Path(tmp) / "logo.png"
+            logo = Image.new("RGBA", (180, 48), (0, 0, 0, 0))
+            ImageDraw.Draw(logo).rectangle((8, 8, 172, 40), fill=(255, 255, 255, 255))
+            logo.save(logo_path)
+            config = {"_logo_mask": renderer.load_logo_mask(logo_path)}
+            light = Image.new("RGB", (400, 120), "white")
+            dark = Image.new("RGB", (400, 120), PALETTE["dark"])
+            self.assertEqual(renderer.contrast_logo_color(light, config, PALETTE, 10, 10), PALETTE["ink"])
+            self.assertEqual(renderer.contrast_logo_color(dark, config, PALETTE, 10, 10), PALETTE["panel"])
+
     def test_cli_renders_with_photo_relative_to_brand_json(self) -> None:
         markdown = """## Carrusel 1 · A small guide
 
@@ -96,12 +108,16 @@ A caption that adds context.
             base = Path(tmp)
             (base / "assets").mkdir()
             Image.new("RGB", (320, 480), "#78948d").save(base / "assets" / "cover.jpg")
+            logo = Image.new("RGBA", (180, 48), (0, 0, 0, 0))
+            ImageDraw.Draw(logo).rounded_rectangle((8, 8, 172, 40), radius=12, fill=(255, 255, 255, 255))
+            logo.save(base / "assets" / "logo.png")
             source = base / "copy.md"
             source.write_text(markdown, encoding="utf-8")
             brand = {
                 "name": "Test brand",
                 "handle": "@testbrand",
                 "palette": PALETTE,
+                "logo": "assets/logo.png",
                 "photos": ["assets/cover.jpg"],
             }
             brand_path = base / "brand.json"

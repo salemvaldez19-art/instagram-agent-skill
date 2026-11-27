@@ -16,14 +16,14 @@ Este directorio versiona el copy y los guiones fuente para tres tonos. Las artes
 - [Conversacional regio](https://drive.google.com/drive/folders/13q8x7v6aLwpdaTXsVLqx4FpQdBK4tMSr)
 - [Dinámico](https://drive.google.com/drive/folders/1kwj20bWUDfzJA-D2rYvB3-5nG4NFmgz-)
 
-Cada carpeta de tono contiene un ZIP final con tres carruseles gráficos, 23 JPG de 1080 × 1350 px, tres PDFs individuales (uno por carrusel), un PDF conjunto de revisión, captions, textos alternativos, copy fuente, un Reel y un VSL MP4, además de sus SRT. También están el PDF conjunto y los MP4 como archivos independientes.
+Cada carpeta de tono contiene un ZIP final con tres carruseles gráficos, 23 JPG de 1080 × 1350 px, tres PDFs individuales (uno por carrusel), un PDF conjunto de revisión, captions, textos alternativos, copy fuente, el logotipo proporcionado en `brand_assets/`, un Reel y un VSL MP4, además de sus SRT. También están el PDF conjunto y los MP4 como archivos independientes.
 
 ## Nueva dirección visual de los carruseles
 
 - Composición editorial fotográfica con variaciones entre portada a sangre, paneles divididos, bloques de color y láminas de resumen.
 - Sistema cromático distinto para cada tono; tipografía, numeración, márgenes y firma consistentes dentro de cada carrusel.
 - Las fotografías son imágenes conceptuales generadas para ilustrar temas; no muestran clientes, testimonios ni resultados reales.
-- Se usa un wordmark tipográfico de producción, no el logotipo oficial de la marca.
+- Se incorporó el logotipo blanco proporcionado por la marca; se conserva su forma y se adapta su color monocromo para contrastar con fondos claros y oscuros.
 - Los seis MP4 se conservan de la entrega anterior; no se volvieron a animar los carruseles.
 
 ## Formato de video
