@@ -1,103 +1,167 @@
 ---
 name: ig-carousel
 description: >-
-  Build an Instagram carousel - the cover that earns the swipe, slide-by-slide
-  copy, and the 1080x1350 files to upload. Use when the user says "carousel",
-  "slides", "swipe post", "turn this into a carousel", or has a list-shaped or
-  step-shaped idea that would die as a single image.
+  Create an Instagram carousel with a strong cover, clear slide-by-slide copy,
+  accessibility text, and a cohesive visual system. Can render 1080x1350 photo-led
+  JPG slides and review PDFs with the bundled Pillow tool. Use when the user asks
+  for a carousel, slides, a swipe post, or a list/sequence that needs re-reading.
 ---
 
 # ig-carousel
 
-Carousels are the highest-dwell format on the grid, because a swipe is an
-interaction and a scroll is not. They also get a second chance: Instagram can
-show a carousel again starting from a later slide to someone who did not engage
-the first time, so slide two has to stand on its own as well.
-
-The format rewards one idea broken into steps. It punishes a caption cut into
-pieces.
+A carousel is useful when an idea benefits from sequence, comparison, or being
+saved and re-read. Every swipe must repay the viewer's attention. Do not split a
+caption into slides just to fill a template.
 
 ## When to use it instead of a Reel
 
 Use a carousel when the idea has **sequence and needs to be re-read**: steps, a
-framework with parts, a before and after, a list worth screenshotting. Use a
-Reel when the idea has motion, a face, or a payoff that has to be seen
-happening.
+framework with parts, a before and after, or a list worth saving. Use a Reel
+when motion, a face, or a payoff that has to be seen happening is central.
 
-If the idea is one claim, it is neither. Hand it to `/ig-reel` and say so.
+If the idea is one claim, it may work better as a single post or a Reel. Say so
+instead of stretching it.
 
 ## Structure
 
-6 to 10 slides. The cap is 20 and 20 is almost always a book nobody finishes.
-Under 5 and the swipe never starts.
+Aim for 6 to 10 slides. Use fewer when the idea is complete sooner; never add
+filler. A useful default is:
 
 ```
-1         COVER     the hook. 6 words or fewer, at a size that is legible in
-                    the grid at thumbnail. One line of promise under it.
-2         THE STAKE why this matters, in one sentence. This slide is also a
-                    second cover, so it cannot be setup.
-3 to N    ONE IDEA PER SLIDE. A headline of 3 to 7 words, at most 25 words
-                    under it. If a slide needs a paragraph, it is two slides.
-N+1       RECAP     the whole thing as a list. This is the screenshot slide.
-LAST      CTA       one action. Save, comment a keyword, or follow. One.
+1         COVER     one clear promise or question; short enough to read at a glance
+2         STAKE     why this matters, with enough context to stand alone
+3 to N-2  ONE IDEA PER SLIDE; a short headline plus concise supporting copy
+N-1       RECAP     a checklist, summary, or practical takeaway worth saving
+LAST      CTA       one action, relevant to the post
 ```
+
+The structure is a starting point, not a rule. A slide may combine recap and
+CTA if a separate slide would be repetitive.
 
 ## Slide copy rules
 
-- **The cover is 80% of the result.** Six words. Big. Nothing on the deck saves
-  a cover nobody swipes.
-- **Design for the grid crop.** The profile grid crops to a portrait rectangle
-  that is taller than it is wide, and the exact ratio has moved more than once.
-  Build at 1080x1350 and keep the cover text well inside the middle, clear of
-  the outer 120 pixels on every side, and the crop stops mattering.
-- **Number the slides** (3/8). Completion goes up when people can see the end.
-- **No slide is a paragraph.** If it cannot be said in 25 words, split it.
-- **The recap slide is the one people screenshot and send.** Sends are the
-  strongest signal you can earn. Make it standalone and readable with no
-  context.
-- **The handle on every slide**, small, bottom corner. Screenshots travel
-  without you.
-- **Alt text on the cover at minimum.** It is read by screen readers and by
-  Instagram.
+- **Lead with a useful promise, not clickbait.** Keep the cover focused on one
+  idea. A short headline is easier to scan in the grid and on a phone.
+- **Make slide two work on its own.** It may be the first frame shown to someone
+  who has already seen the cover.
+- **One idea per slide.** Prefer a headline of 3 to 7 words and up to about 25
+  words of supporting copy. Split or edit a paragraph rather than shrinking it
+  to fit.
+- **Use concrete language.** Add a real example, number, or action only when it
+  is supported by the source material. Never invent outcomes, client stories,
+  prices, features, or guarantees.
+- **Make the recap self-contained.** A viewer should understand it without
+  reading every earlier slide.
+- **Use one relevant CTA.** Do not stack save, share, comment, follow, and DM
+  requests on the same closing slide.
+- **Write alt text.** Describe the cover's subject and message; do not repeat a
+  keyword list. Provide slide-by-slide alt text when requested or needed for
+  the handoff.
 
-## Building the files
+## Visual direction
 
-Instagram wants 1080x1350 (4:5), JPEG or PNG, up to 20 items. Build it as HTML
-and print each slide:
+Start from the user's actual identity: use supplied logo files, palette, and
+fonts when available. Never invent or redraw an official-looking logo. If no
+logo file is available, use a restrained typographic wordmark and label it as
+such. For a supplied monochrome logo, preserve its shape and use a light or dark
+version only as permitted by the brand rules. Keep the layout recognizable
+across the deck without making every slide the same stack of cards.
+
+- Build portrait at **1080 × 1350 px (4:5)**. Keep text and essential details
+  away from the edges; preview the cover in both the feed and profile-grid crop.
+- Use one dominant text color, one or two accents, and quiet neutrals. Maintain
+  strong contrast between type and background, including over photography.
+- Use at most two complementary type families. Make headings, body copy, and
+  labels visibly distinct; body text must still read on a phone without zooming.
+- Let photography support the idea: alternate full-bleed, split, and smaller
+  image treatments with clean editorial layouts. Do not force a photo onto
+  every slide if it harms legibility or meaning.
+- Use licensed/user-owned images. If conceptual generated imagery is used,
+  don't present it as a real customer, a testimonial, a result, or a screenshot
+  of a real platform. Never fabricate a Google profile, analytics, reviews, or
+  product UI.
+- Keep stable elements (palette, margins, footer/handle, numbering) consistent;
+  vary scale, crop, and composition for visual rhythm.
+- Review the deck at phone size. Fix clipped text, awkward wraps, low contrast,
+  repetitive imagery, and any slide that looks like a generic quote-card pack.
+
+## Preparing the copy
+
+Write the slide-by-slide copy first so the user can review it before rendering.
+Then prepare the caption as a separate deliverable: it should add context or a
+useful next step rather than repeat every slide. Run the text through
+`/ig-human` when available. Verify every factual claim and any current pricing
+against an authoritative source before publication.
+
+Use this Markdown structure for renderable source. Hard-break backslashes after
+bold slide headings are accepted; normal Markdown line breaks also work.
+
+```markdown
+## Carrusel 1 · A useful title
+
+**Portada, texto alternativo:** A concise description of the cover.
+
+1. **Portada**\
+   **A clear cover question?**\
+   One short line that sets the promise.
+
+2. **The useful point**\
+   Explain one thing in plain language.
+
+3. **Cierre**\
+   One next step that fits the content.
+
+**Caption**\
+A caption that adds context and a single CTA.
+```
+
+## Rendering the files
+
+The bundled renderer makes photo-led 1080 × 1350 JPEG slides plus per-carousel
+PDF previews, captions, alt text, and a short README. Install its only
+third-party dependency:
 
 ```bash
-# one <section> per slide, 1080x1350, page-break-after: always
-# then Chrome headless --print-to-pdf, or any HTML-to-image you already use
+python3 -m pip install -r skills/ig-carousel/requirements.txt
 ```
 
-Write the HTML with `width:1080px; height:1350px`, a single accent colour, and
-type no smaller than 32px, because this is read on a phone at a third of its
-real size. If the project has a brand skill or a design system, use it and do
-not invent a palette.
+Copy `brand.example.json`, replace the brand name, handle, palette, photo paths,
+and optional font paths. Set `logo` to a supplied PNG path when available (or
+leave it `null`); for monochrome transparent logos the renderer preserves the
+alpha silhouette and recolors it for contrast. The photos list must have one
+image for each carousel in the Markdown file. Logo, image, and font paths in
+the JSON are relative to that JSON file, or may be absolute.
 
-## Output
-
-The slide-by-slide copy first, as a numbered list the user can read in ten
-seconds and edit before anything is rendered. Then the **caption**, which for a
-carousel is Job B in `/ig-caption`: the caption is doing work here, because the
-cover has already used its six words.
-
-Run both through `/ig-human`. Build the files only after the user approves the
-copy.
-
-```
-CAROUSEL  ·  8 slides
-
-1  COVER   THE $18,000 CLAUSE
-           One line I now put in every contract.
-2  STAKE   I approved the work. They asked for the money back nine days later.
-3          WHAT IT SAYS
-           Payment on delivery, not on approval.
-...
-7  RECAP   All four lines, in order.
-8  CTA     Comment CONTRACT and I will send the full clause.
-
-Caption: Job B, hook in line 1, one ask, 3 tags.
+```bash
+python3 skills/ig-carousel/render_carousel.py \
+  entregables/carruseles.md \
+  --brand entregables/brand.json \
+  --out .cache/carruseles
 ```
 
-Nothing is uploaded. The user posts it.
+The renderer writes a folder per carousel with numbered JPGs, `preview.pdf`,
+`caption.txt`, and `alt-text.txt`. Its README records whether the supplied logo
+was used; without a logo, it falls back to a typographic wordmark that is not an
+official logo. Keep generated output outside Git unless the project explicitly
+versions its final assets.
+
+## Quality check
+
+1. Run the parser/render tests:
+
+   ```bash
+   python3 -m unittest discover -s skills/ig-carousel -p 'test_*.py'
+   ```
+
+2. Confirm the slide count matches the copy, each JPG is 1080 × 1350, and each
+   preview opens. Check that the caption and alt text are non-empty and that no
+   caption or Markdown artifacts leaked onto a slide.
+3. Review a contact sheet and each cover, recap, and closing slide at phone
+   size. Look for clipping, weak contrast, awkward crops, repeated images, and
+   text competing with the photo. Fix source copy or layout; do not hide
+   overflow by silently dropping words.
+4. Recheck claims, prices, links, handle, rights to imagery, and spelling.
+
+Show the copy and a visual preview for approval when appropriate. **Never
+publish.** Upload to a private review location only when explicitly requested;
+otherwise hand the files to the user to post.

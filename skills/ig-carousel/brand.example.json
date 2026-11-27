@@ -1,0 +1,27 @@
+{
+  "name": "Your brand",
+  "handle": "@yourhandle",
+  "tone": "editorial",
+  "asset_note": "Confirm photo rights and context before publishing.",
+  "logo": null,
+  "palette": {
+    "paper": "#F6F1E6",
+    "ink": "#123244",
+    "accent": "#0E8178",
+    "accent2": "#E9A95E",
+    "muted": "#5B6B71",
+    "dark": "#102C3A",
+    "panel": "#FFF8EB",
+    "line": "#CCD9D4"
+  },
+  "photos": [
+    "assets/cover-01.jpg",
+    "assets/cover-02.jpg",
+    "assets/cover-03.jpg"
+  ],
+  "fonts": {
+    "regular": null,
+    "bold": null,
+    "serif_bold": null
+  }
+}
