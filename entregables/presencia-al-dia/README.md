@@ -16,7 +16,15 @@ Este directorio versiona el copy y los guiones fuente para tres tonos. Las artes
 - [Conversacional regio](https://drive.google.com/drive/folders/13q8x7v6aLwpdaTXsVLqx4FpQdBK4tMSr)
 - [Dinámico](https://drive.google.com/drive/folders/1kwj20bWUDfzJA-D2rYvB3-5nG4NFmgz-)
 
-Cada carpeta de tono contiene un ZIP final con tres carruseles gráficos, sus JPG de 1080 × 1350 px, PDFs de revisión, captions, textos alternativos, copy fuente, un Reel y un VSL MP4, además de archivos SRT. También están los MP4 y el PDF de vista previa como archivos independientes.
+Cada carpeta de tono contiene un ZIP final con tres carruseles gráficos, 23 JPG de 1080 × 1350 px, tres PDFs individuales (uno por carrusel), un PDF conjunto de revisión, captions, textos alternativos, copy fuente, un Reel y un VSL MP4, además de sus SRT. También están el PDF conjunto y los MP4 como archivos independientes.
+
+## Nueva dirección visual de los carruseles
+
+- Composición editorial fotográfica con variaciones entre portada a sangre, paneles divididos, bloques de color y láminas de resumen.
+- Sistema cromático distinto para cada tono; tipografía, numeración, márgenes y firma consistentes dentro de cada carrusel.
+- Las fotografías son imágenes conceptuales generadas para ilustrar temas; no muestran clientes, testimonios ni resultados reales.
+- Se usa un wordmark tipográfico de producción, no el logotipo oficial de la marca.
+- Los seis MP4 se conservan de la entrega anterior; no se volvieron a animar los carruseles.
 
 ## Formato de video
 
@@ -34,9 +42,9 @@ Cada carpeta de tono contiene un ZIP final con tres carruseles gráficos, sus JP
 - No prometer primeras posiciones, ventas o resultados garantizados.
 - La auditoría se describe como gratuita, con hasta tres mejoras prioritarias en un máximo de 24 horas.
 - El sitio con catálogo recibe pedidos por WhatsApp, no pagos en línea; dominio y hosting se pagan aparte.
-- La cabecera visual usa un monograma «P» tipográfico de producción, no el logotipo oficial.
+- Los precios y alcances deben revisarse en la web antes de publicar.
 - No se ha publicado contenido.
 
 ## Validación
 
-El puntaje local de hooks es heurístico y no está calibrado para español. Conviene revisar captions, subtítulos y precios en celular antes de publicar.
+Se revisó una hoja de contacto por tono, el tamaño 1080 × 1350 de las 69 láminas y los PDFs. El renderizador se detiene si el copy excede el espacio previsto, en vez de truncarlo en silencio. El puntaje local de hooks es heurístico y no está calibrado para español. Conviene revisar captions, subtítulos y precios en celular antes de publicar.

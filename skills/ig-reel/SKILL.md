@@ -111,6 +111,38 @@ Write it separately, every time. It is read before it is heard.
   frame and it is covered.
 - **Burn in captions for the body.** Most people watch muted first.
 
+## Visual execution for a polished Reel
+
+A script and beat sheet are not a finished edit. When planning a shoot or edit,
+add a simple shot map so each beat has a visual reason to exist:
+
+| Beat | Spoken line | Picture / action | On-screen text |
+| --- | --- | --- | --- |
+| Hook | Exact first sentence | Face or relevant action already in motion | Short hook phrase |
+| Stake | Why it matters | A real detail, place, or product | One key word/number |
+| Body | One idea per beat | A-roll, relevant B-roll, or a truthful screen capture | Only the phrase that aids scanning |
+| Payoff | Deliver the promise | Show the result only if it is real and supported | Restate the useful takeaway |
+| CTA | One action | Return to the speaker or relevant scene | One clear ask |
+
+- **Use real, relevant visuals.** Prefer the creator, work in progress,
+  product, location, or a screen recording with private data hidden. Do not
+  invent reviews, analytics, search rankings, customer interfaces, or outcomes.
+  Label conceptual/generated imagery when it could be mistaken for documentary
+  footage; use licensed assets.
+- **Keep a visual system.** Match the user's identity with a restrained palette,
+  one or two type families, consistent subtitle styling, and clear contrast.
+  Highlight a phrase or number rather than putting the whole script on screen.
+- **Make subtitles effortless to read.** Keep to one or two lines, synchronize
+  to the spoken words, and hold each card long enough to read. Check the safe
+  zone on a phone preview; don't let captions fight the app controls or the
+  speaker's face.
+- **Cut with purpose.** Use a new angle, action, or detail when the idea changes.
+  Do not add random stock clips, constant zooms, glitch effects, or transitions
+  just to manufacture motion.
+- **Review the actual export.** Check opening and closing frames, crop, spelling,
+  subtitle timing, audio clarity, and that every visual claim matches the script.
+  A beat sheet is a planning aid, not proof the exported video is correct.
+
 ## Rules that make the difference
 
 - **One idea per Reel.** If the script has two, you have two Reels. Say so.
@@ -118,8 +150,8 @@ Write it separately, every time. It is read before it is heard.
   given a number, ask for one rather than writing around the hole.
 - **Cut the intro.** No greeting, no "in this video", no name, no logo sting.
   The video starts at the sentence you would normally reach at second six.
-- **Change the frame every beat.** A static shot for 8 seconds is where people
-  leave, and `beats.py` will flag it.
+- **Give each beat a deliberate visual.** A static shot may work for a key line,
+  but do not leave long stretches with no change in subject, action, or framing.
 - **One ask at the end.** Comment a keyword, save it, or follow. One.
 - **Never fabricate.** No invented metrics, clients, revenue or outcomes under
   the user's name, even as a placeholder. If a number is needed and unknown,
